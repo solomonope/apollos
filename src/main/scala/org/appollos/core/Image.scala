@@ -8,10 +8,12 @@ object Image {
 
   def apply[T: ClassTag](channels: Int, width: Int, height: Int): Image[T] = new Image[T](channels, width, height);
 
+  def apply[T: ClassTag](width: Int, height: Int): Image[T] = new Image[T](1, width, height);
+
   def apply[T: ClassTag](): Image[T] = null;
 }
 
-class Image[T:ClassTag](private val channels: Int, val width: Int, val height: Int) {
+class Image[T: ClassTag](private val channels: Int, val width: Int, val height: Int) {
 
   private val data: Array[DenseMatrix[T]] = new Array[DenseMatrix[T]](channels);
   for (ch: Int <- 0 until channels) {
@@ -47,6 +49,10 @@ class Image[T:ClassTag](private val channels: Int, val width: Int, val height: I
   }
 
   def apply(action: (Image[T]) => Image[T]): Image[T] = {
+    return action(this);
+  }
+
+  def apply(action: (Image[T]) => AnyRef): AnyRef = {
     return action(this);
   }
 }
