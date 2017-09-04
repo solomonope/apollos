@@ -48,11 +48,4 @@ class Image[T: ClassTag](private val channels: Int, val width: Int, val height: 
     return this.data(channel);
   }
 
-  def apply(action: (Image[T]) => Image[T]): Image[T] = {
-    return action(this);
-  }
-
-  def apply(action: (Image[T]) => AnyRef): AnyRef = {
-    return action(this);
-  }
 }

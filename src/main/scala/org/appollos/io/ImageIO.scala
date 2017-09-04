@@ -5,7 +5,7 @@ import java.io.File
 
 import breeze.plot._
 import org.appollos.core.Image
-import org.appollos.exposure.{Gamma, Inverse}
+import org.appollos.exposure.{Gamma, Inverse, Log}
 
 
 object ImageIO {
@@ -34,7 +34,8 @@ object ImageIO {
     val img: Image[Double] = ImageIO.read("/Users/s.folorunsho/lab/101_ObjectCategories/nautilus/image_0001.jpg").asInstanceOf[Image[Double]]
 
     var imx = Inverse[Double](img);
-    var gamma = Gamma[Double](img, 5,3);
+    var gamma = Gamma[Double](img, 0.75);
+    var log = Log[Double](img);
     var t: Thread = new Thread(() => {
       val f2 = Figure("MM")
       f2.subplot(0) += breeze.plot.image(gamma(0));

@@ -15,9 +15,8 @@ object Gamma {
     for (i <- 0 until img.height) {
       for (j <- 0 until img.width) {
         var norm = img(j, i).asInstanceOf[Double] / maxIntensity;
-        var t = k * Math.pow(norm, gamma);
+        var t =  Math.pow(k*norm, gamma) * 255.0;
         image(j, i, t.asInstanceOf[T]);
-
       }
     }
     return image;
