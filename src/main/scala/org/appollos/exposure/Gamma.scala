@@ -8,15 +8,16 @@ import scala.reflect.ClassTag
 object Gamma {
 
 
-  def apply[T: ClassTag](img: Image[T], gamma: Double, k: Int = 1): Image[T] = {
-    val image = Image[T](img.width, img.height);
-    val data = img(0).asInstanceOf[DenseMatrix[Double]]
-    var maxIntensity = max(data)
+  def apply(img: Image, gamma: Double, k: Int = 1): Image = {
+    val image = Image(img.width, img.height);
+    val data = img(0);
+    val maxIntensity = max(data)
+    val L = math.pow(2, img.imageType.id) - 1;
     for (i <- 0 until img.height) {
       for (j <- 0 until img.width) {
-        var norm = img(j, i).asInstanceOf[Double] / maxIntensity;
-        var t =  Math.pow(k*norm, gamma) * 255.0;
-        image(j, i, t.asInstanceOf[T]);
+        val norm = img(j, i) / maxIntensity;
+        val t = Math.pow(k * norm, gamma) * L;
+        image(j, i, t);
       }
     }
     return image;

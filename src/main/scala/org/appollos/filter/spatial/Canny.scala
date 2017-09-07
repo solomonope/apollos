@@ -10,7 +10,7 @@ object Canny {
 
   val cannKernel = new DenseMatrix[Double](3, 3);
 
-  def apply[T: ClassTag](image: Image[T]): Image[T] = {
+  def apply(image: Image): Image = {
 
     return image;
   }
